@@ -44,7 +44,7 @@ public class MailController {
     public ResponseEntity<?> receiveRequestEmailWithFile(@ModelAttribute EmailFileDTO emailFileDTO){
 
         try{
-            String fileName = emailFileDTO.getFile().getName();
+            String fileName = emailFileDTO.getFile().getOriginalFilename();
             Path path = Paths.get("src/main/resources/files", fileName);
 
             Files.createDirectories(path.getParent());
@@ -61,7 +61,7 @@ public class MailController {
 
             Map<String ,String> response = new HashMap<>();
             response.put("estado", "Enviado");
-            response.put("archivo", "fileName");
+            response.put("archivo", fileName);
 
             return ResponseEntity.ok(response);
         }catch (Exception e){
